@@ -12,9 +12,7 @@ Just do `v install lazalong.minicoro`
 ## Example Program main.v:
 ```
 /********************************************************\
-
-Example minicoro program.
-
+	Example minicoro program.
 \********************************************************/
 module main
 
@@ -67,10 +65,6 @@ fn main () {
 	assert res == minicoro.Mco_Result.mco_success
 }
 
-
-fn main(){
-	
-}
 ```
 ## Roadmap
 - [x] Support most common minicoro.h functions
