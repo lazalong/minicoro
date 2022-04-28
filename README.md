@@ -16,7 +16,7 @@ Just do `v install lazalong.minicoro`
 \********************************************************/
 module main
 
-import minicoro
+import lazalong.minicoro
 
 [callconv: "fastcall"]
 pub fn coro_entry(co &C.mco_coro) {
