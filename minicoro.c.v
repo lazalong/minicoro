@@ -31,13 +31,13 @@ $if debug {
 #include "minicoro.h"
 
 [callconv: 'fastcall']
-type FuncCoro = fn (co C.mco_coro)
+type FuncCoro = fn (co &Mco_Coro)
 
 [callconv: 'fastcall']
 type FreeCB = fn (ptr voidptr, allocator_data voidptr)
 
 [callconv: 'fastcall']
-type MallocCoro = fn (size usize, allocator_data voidptr) voidptr // [void* (*malloc_cb)(size_t size, void* allocator_data);]
+type MallocCB = fn (size usize, allocator_data voidptr) voidptr // [void* (*malloc_cb)(size_t size, void* allocator_data);]
 
 // CONSTANTS //
 pub const (
@@ -75,7 +75,7 @@ pub mut: // Coroutine structure.
 	context         voidptr
 	state           Mco_State
 	func            FuncCoro // [void (*func)(mco_coro* co);]
-	prev_co         &C.mco_coro = 0
+	prev_co         &Mco_Coro = 0
 	user_data       voidptr
 	allocator_data  voidptr
 	free_cb         FreeCB  // [void (*free_cb)(void* ptr, void* allocator_data);]
@@ -98,7 +98,7 @@ pub mut: // Structure used to initialize a coroutine.
 	func      FuncCoro // Entry point function for the coroutine. [void (*func)(mco_coro* co);]
 	user_data voidptr  // Coroutine user data, can be get with `mco_get_user_data`.
 	// Custom allocation interface.
-	malloc_cb      MallocCoro // Custom allocation function.   [void* (*malloc_cb)(size_t size, void* allocator_data);]
+	malloc_cb      MallocCB // Custom allocation function.   [void* (*malloc_cb)(size_t size, void* allocator_data);]
 	free_cb        FreeCB     // Custom deallocation function. [void  (*free_cb)(void* ptr, void* allocator_data);]
 	allocator_data voidptr    // User data pointer passed to `malloc`/`free` allocation functions.
 	storage_size   usize      // Coroutine storage size, to be used with the storage APIs.
