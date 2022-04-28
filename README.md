@@ -19,16 +19,16 @@ module main
 import minicoro
 
 [callconv: "fastcall"]
-pub fn coro_entry(co C.mco_coro) {
+pub fn coro_entry(co &C.mco_coro) {
 	println("  Coroutine 1")
-	C.mco_yield(&co)
+	C.mco_yield(co)
 	println("  Coroutine 2")
 }
 
 [console]
 fn main () {
 	println("Simple Minicoro Test")
- 
+
 	// First initialize a `desc` object through `mco_desc_init`.
 	fct := voidptr(&coro_entry)
 	mut desc := C.mco_desc_init(fct, 0)
@@ -40,7 +40,7 @@ fn main () {
 	// Call `mco_create` with the output coroutine pointer and `desc` pointer.
 	mut res := C.mco_create(&co, &desc)
 	assert res == minicoro.Mco_Result.mco_success
-	//println(res) 
+	//println(res)
 
 	// The coroutine should be now in suspended state.
 	assert C.mco_status(co) == minicoro.Mco_State.mco_suspended
@@ -49,7 +49,7 @@ fn main () {
 	res = C.mco_resume(co) // Should print "coroutine 1".
 	assert res == minicoro.Mco_Result.mco_success
 
-	// We get back from coroutine context in suspended state 
+	// We get back from coroutine context in suspended state
 	// because the coro_entry method yields after the first print
 	assert C.mco_status(co) == minicoro.Mco_State.mco_suspended
 
@@ -77,9 +77,9 @@ fn main () {
 - [ ] Simple Examples
 - [ ] Other examples
 - [x] Windows support
-- [ ] iOS support 
+- [ ] iOS support
 - [ ] Android support
-- [ ] Linux support
+- [x] Linux support
 - [ ] Mac OS X support
 - [ ] WebAssembly support
 - [ ] Raspberry Pi support

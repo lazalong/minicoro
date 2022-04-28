@@ -1,9 +1,9 @@
 module minicoro
 
 [callconv: 'fastcall']
-pub fn coro_entry(co C.mco_coro) {
+pub fn coro_entry(co &C.mco_coro) {
 	// println("Coroutine 1")
-	C.mco_yield(&co)
+	C.mco_yield(co)
 	// println("Coroutine 2")
 }
 

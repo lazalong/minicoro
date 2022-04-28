@@ -3,10 +3,10 @@ module main
 import lazalong.minicoro
 
 [callconv: 'fastcall']
-pub fn coro_entry(co C.mco_coro) {
-	println('  Coroutine 1')
-	C.mco_yield(&co)
-	println('  Coroutine 2')
+pub fn coro_entry(co &C.mco_coro) {
+	println('  Coroutine 1 $co.magic_number')
+	C.mco_yield(co)
+	println('  Coroutine 2 $co.magic_number')
 }
 
 [console]
