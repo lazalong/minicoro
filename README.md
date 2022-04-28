@@ -73,7 +73,7 @@ fn main () {
 - [x] Support all minicoro.h enums
 - [ ] Add in #defines
 - [ ] Fully complete minicoro.h wrapper
-- [ ] minicoro.v documentation
+- [ ] minicoro.c.v documentation
 - [ ] Simple Examples
 - [ ] Other examples
 - [x] Windows support
