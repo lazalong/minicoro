@@ -111,7 +111,7 @@ pub type Mco_Desc = C.mco_desc
 
 // FUNCTIONS //
 // Coroutine functions.
-fn C.mco_desc_init(co Func_Coro, stack_size usize) Mco_Desc // Initialize description of a coroutine. When stack size is 0 then MCO_DEFAULT_STACK_SIZE is used.
+fn C.mco_desc_init(co FuncCoro, stack_size usize) Mco_Desc // Initialize description of a coroutine. When stack size is 0 then MCO_DEFAULT_STACK_SIZE is used.
 fn C.mco_init(co &Mco_Coro, desc &Mco_Desc) Mco_Result // Initialize the coroutine.
 fn C.mco_uninit(co &Mco_Coro) Mco_Result // Uninitialize the coroutine, may fail if it's not dead or suspended.
 fn C.mco_create(out_co &&Mco_Coro, desc &Mco_Desc) Mco_Result // Allocates and initializes a new coroutine.
