@@ -1,33 +1,17 @@
-# minicoro.v
-![minicoro.v icon](icon.png)
-
-## WIP. See issues.
-
-Not a fork! This isn't a fork of edubart's minicoro [https://github.com/edubart/minicoro] but a wrapper built from the ground up with cross compatibility in mind.
-minocoro.v is a binding for minicoro in V with an aim for 100% parity with the C library.
-
-
-## Installation
-Just do `v install lazalong.minicoro`
-## Example Program main.v:
-```
-/********************************************************\
-	Example minicoro program.
-\********************************************************/
 module main
 
 import lazalong.minicoro
 
-[callconv: "fastcall"]
+[callconv: 'fastcall']
 pub fn coro_entry(co &C.mco_coro) {
-	println("  Coroutine 1")
+	println('  Coroutine 1 $co.magic_number')
 	C.mco_yield(co)
-	println("  Coroutine 2")
+	println('  Coroutine 2 $co.magic_number')
 }
 
 [console]
-fn main () {
-	println("Simple Minicoro Test")
+fn main() {
+	println('Simple Minicoro Test')
 
 	// First initialize a `desc` object through `mco_desc_init`.
 	fct := voidptr(&coro_entry)
@@ -35,12 +19,12 @@ fn main () {
 
 	// Configure `desc` fields when needed (e.g. customize user_data or allocation functions).
 	desc.user_data = voidptr(0)
-	mut co := &minicoro.Mco_Coro {}
+	mut co := &minicoro.Mco_Coro{}
 
 	// Call `mco_create` with the output coroutine pointer and `desc` pointer.
 	mut res := C.mco_create(&co, &desc)
 	assert res == minicoro.Mco_Result.mco_success
-	//println(res)
+	// println(res)
 
 	// The coroutine should be now in suspended state.
 	assert C.mco_status(co) == minicoro.Mco_State.mco_suspended
@@ -64,23 +48,3 @@ fn main () {
 	res = C.mco_destroy(co)
 	assert res == minicoro.Mco_Result.mco_success
 }
-
-```
-## Roadmap
-- [x] Support most common minicoro.h functions
-- [x] Support all minicoro.h functions
-- [x] Support all minicoro.h types
-- [x] Support all minicoro.h enums
-- [ ] Add in #defines
-- [ ] Fully complete minicoro.h wrapper
-- [ ] minicoro.c.v documentation
-- [ ] Simple Examples
-- [ ] Other examples
-- [x] Windows support
-- [ ] iOS support
-- [ ] Android support
-- [x] Linux support
-- [ ] Mac OS X support
-- [ ] WebAssembly support
-- [ ] Raspberry Pi support
-- [ ] RISC-V support
