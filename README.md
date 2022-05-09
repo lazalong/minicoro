@@ -85,3 +85,4 @@ fn main () {
 - [ ] WebAssembly support
 - [ ] Raspberry Pi support
 - [ ] RISC-V support
+- [ ] Add CI tests

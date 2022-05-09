@@ -15,32 +15,32 @@ fn test_simple() {
 
 	// Configure `desc` fields when needed (e.g. customize user_data or allocation functions).
 	desc.user_data = voidptr(0)
-	mut co := &Mco_Coro{}
+	mut co := &Coro{}
 
 	// Call `mco_create` with the output coroutine pointer and `desc` pointer.
 	mut res := C.mco_create(&co, &desc)
-	assert res == Mco_Result.mco_success
+	assert res == .success
 	// println(res)
 
 	// The coroutine should be now in suspended state.
-	assert C.mco_status(co) == Mco_State.mco_suspended
+	assert C.mco_status(co) == .suspended
 
 	// Call `mco_resume` to start for the first time, switching to its context.
 	res = C.mco_resume(co) // Should print "coroutine 1".
-	assert res == Mco_Result.mco_success
+	assert res == .success
 
 	// We get back from coroutine context in suspended state
 	// because the coro_entry method yields after the first print
-	assert C.mco_status(co) == Mco_State.mco_suspended
+	assert C.mco_status(co) == .suspended
 
 	// Call `mco_resume` to resume for a second time.
 	res = C.mco_resume(co) // Should print "coroutine 2".
-	assert res == Mco_Result.mco_success
+	assert res == .success
 
 	// The coroutine finished and should be now dead.
-	assert C.mco_status(co) == Mco_State.mco_dead
+	assert C.mco_status(co) == .dead
 
 	// Call `mco_destroy` to destroy the coroutine.
 	res = C.mco_destroy(co)
-	assert res == Mco_Result.mco_success
+	assert res == .success
 }
