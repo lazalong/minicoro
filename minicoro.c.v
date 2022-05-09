@@ -32,13 +32,13 @@ $if debug {
 #include "minicoro.h"
 
 [callconv: 'fastcall']
-type FuncCoro = fn (co &Coro)
+pub type FuncCoro = fn (co &Coro)
 
 [callconv: 'fastcall']
-type FreeCB = fn (ptr voidptr, allocator_data voidptr)
+pub type FreeCB = fn (ptr voidptr, allocator_data voidptr)
 
 [callconv: 'fastcall']
-type MallocCB = fn (size usize, allocator_data voidptr) voidptr // [void* (*malloc_cb)(size_t size, void* allocator_data);]
+pub type MallocCB = fn (size usize, allocator_data voidptr) voidptr // [void* (*malloc_cb)(size_t size, void* allocator_data);]
 
 // CONSTANTS //
 pub const (
@@ -77,7 +77,7 @@ pub enum Result {
 }
 
 [typedef]
-pub struct C.mco_coro {
+struct C.mco_coro {
 pub mut:
 	context         voidptr
 	state           State
@@ -101,7 +101,7 @@ pub mut:
 pub type Coro = C.mco_coro
 
 [typedef]
-pub struct C.mco_desc {
+struct C.mco_desc {
 pub mut:
 	func      FuncCoro // Entry point function for the coroutine. [void (*func)(mco_coro* co);]
 	user_data voidptr  // Coroutine user data, can be get with `mco_get_user_data`.
