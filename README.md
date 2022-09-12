@@ -79,7 +79,7 @@ fn main () {
 - [ ] Other examples
 - [x] Windows support
 - [ ] iOS support
-- [ ] Android support
+- [x] Android support
 - [x] Linux support
 - [ ] Mac OS X support
 - [ ] WebAssembly support
